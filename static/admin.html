@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="./bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <script src="./bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+
+        }
+
+        .box {
+            width: 150px;
+            height: 150px;
+            margin: 200px auto;
+        }
+
+        body {
+            background-color: #f6f6f6;
+        }
+
+        .right-container {
+            position: relative;
+        }
+
+        .right-wrap {
+            width: 100%;
+            min-width: 500px;
+            position: absolute;
+            display: none;
+            position: fixed;
+            display: none;
+            left: 50%;
+            top: 15%;
+        }
+
+        .right-wrap.active {
+            display: block;
+        }
+
+        .container1 {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-150%, -50%);
+
+        }
+
+        .container {
+            margin-left: 0;
+        }
+    </style>
+    <!-- ajax的url就可以不写这一部分，如果url里的内容开头是/就不会参考base，如果直接写user就会拼接这里 -->
+    <base href="http://localhost:3006/admin/">
+</head>
+
+<body>
+    <div id="root">
+        <div>
+
+            <div class="out">
+                <div class="fade-in">
+                    <div class="container">
+                        <div class="one common"></div>
+                        <div class="two common"></div>
+                        <div class="three common"></div>
+                        <div class="four common"></div>
+                        <div class="five common"></div>
+                        <div class="six common"></div>
+                        <div class="seven common"></div>
+                        <div class="eight common"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="waifu">
+        <div class="waifu-tips"></div><canvas id="live2d" width="280" height="250" class="live2d"></canvas>
+        <div class="waifu-tool"><span class="fui-eye"></span> <span class="fui-user"></span> <span
+                class="fui-photo"></span> <span class="fui-cross"></span></div>
+    </div>
+
+
+    <script
+        type="text/javascript">!function (t, e) { "object" == typeof exports && "object" == typeof module ? module.exports = e() : "function" == typeof define && define.amd ? define([], e) : "object" == typeof exports ? exports.POWERMODE = e() : t.POWERMODE = e() }(this, function () { return function (o) { var n = {}; function r(t) { if (n[t]) return n[t].exports; var e = n[t] = { exports: {}, id: t, loaded: !1 }; return o[t].call(e.exports, e, e.exports, r), e.loaded = !0, e.exports } return r.m = o, r.c = n, r.p = "", r(0) }([function (t, e, l) { var n = document.createElement("canvas"); n.width = window.innerWidth, n.height = window.innerHeight, n.style.cssText = "position:fixed;top:0;left:0;pointer-events:none;z-index:999999", window.addEventListener("resize", function () { n.width = window.innerWidth, n.height = window.innerHeight }), document.body.appendChild(n); var r = n.getContext("2d"), c = [], p = 0; function o(t, e) { return Math.random() * (e - t) + t } function u(t) { if (f.colorful) { var e = o(0, 360); return "hsla(" + o(e - 10, e + 10) + ", 100%, " + o(50, 80) + "%, 1)" } return window.getComputedStyle(t).color } function f() { for (var t, e, o, n = function () { var t, e = document.activeElement; if ("TEXTAREA" === e.tagName || "INPUT" === e.tagName && "text" === e.getAttribute("type")) { var o = l(1)(e, e.selectionStart); return t = e.getBoundingClientRect(), { x: o.left + t.left, y: o.top + t.top, color: u(e) } } var n = window.getSelection(); if (n.rangeCount) { var r = n.getRangeAt(0), i = r.startContainer; return i.nodeType === document.TEXT_NODE && (i = i.parentNode), { x: (t = r.getBoundingClientRect()).left, y: t.top, color: u(i) } } return { x: 0, y: 0, color: "transparent" } }(), r = 5 + Math.round(10 * Math.random()); r--;)c[p] = (t = n.x, e = n.y, o = n.color, { x: t, y: e, alpha: 1, color: o, velocity: { x: 2 * Math.random() - 1, y: 2 * Math.random() - 3.5 } }), p = (p + 1) % 500; if (f.shake) { var i = 1 + 2 * Math.random(), a = i * (.5 < Math.random() ? -1 : 1), d = i * (.5 < Math.random() ? -1 : 1); document.body.style.marginLeft = a + "px", document.body.style.marginTop = d + "px", setTimeout(function () { document.body.style.marginLeft = "", document.body.style.marginTop = "" }, 75) } } f.shake = !0, f.colorful = !1, requestAnimationFrame(function t() { requestAnimationFrame(t), r.clearRect(0, 0, n.width, n.height); for (var e = 0; e < c.length; ++e) { var o = c[e]; o.alpha <= .1 || (o.velocity.y += .075, o.x += o.velocity.x, o.y += o.velocity.y, o.alpha *= .96, r.globalAlpha = o.alpha, r.fillStyle = o.color, r.fillRect(Math.round(o.x - 1.5), Math.round(o.y - 1.5), 3, 3)) } }), t.exports = f }, function (e, t) { !function () { var p = ["direction", "boxSizing", "width", "height", "overflowX", "overflowY", "borderTopWidth", "borderRightWidth", "borderBottomWidth", "borderLeftWidth", "borderStyle", "paddingTop", "paddingRight", "paddingBottom", "paddingLeft", "fontStyle", "fontVariant", "fontWeight", "fontStretch", "fontSize", "fontSizeAdjust", "lineHeight", "fontFamily", "textAlign", "textTransform", "textIndent", "textDecoration", "letterSpacing", "wordSpacing", "tabSize", "MozTabSize"], u = null != window.mozInnerScreenX; function t(t, e, o) { var n = o && o.debug || !1; if (n) { var r = document.querySelector("#input-textarea-caret-position-mirror-div"); r && r.parentNode.removeChild(r) } var i = document.createElement("div"); i.id = "input-textarea-caret-position-mirror-div", document.body.appendChild(i); var a = i.style, d = window.getComputedStyle ? getComputedStyle(t) : t.currentStyle; a.whiteSpace = "pre-wrap", "INPUT" !== t.nodeName && (a.wordWrap = "break-word"), a.position = "absolute", n || (a.visibility = "hidden"), p.forEach(function (t) { a[t] = d[t] }), u ? t.scrollHeight > parseInt(d.height) && (a.overflowY = "scroll") : a.overflow = "hidden", i.textContent = t.value.substring(0, e), "INPUT" === t.nodeName && (i.textContent = i.textContent.replace(/\s/g, " ")); var l = document.createElement("span"); l.textContent = t.value.substring(e) || ".", i.appendChild(l); var c = { top: l.offsetTop + parseInt(d.borderTopWidth), left: l.offsetLeft + parseInt(d.borderLeftWidth) }; return n ? l.style.backgroundColor = "#aaa" : document.body.removeChild(i), c } void 0 !== e && void 0 !== e.exports ? e.exports = t : window.getCaretCoordinates = t }() }]) })</script>
+    <canvas width="914" height="754" style="position:fixed;top:0;left:0;pointer-events:none;z-index:999999"></canvas>
+    <script>POWERMODE.colorful = !0, POWERMODE.shake = !1, document.body.addEventListener("input", POWERMODE)</script>
+    <script>!function (e, r, t) { var o, n = []; function a() { for (var e = 0; e < n.length; e++)n[e].alpha <= 0 ? (r.body.removeChild(n[e].el), n.splice(e, 1)) : (n[e].y--, n[e].scale += .004, n[e].alpha -= .013, n[e].el.style.cssText = "left:" + n[e].x + "px;top:" + n[e].y + "px;opacity:" + n[e].alpha + ";transform:scale(" + n[e].scale + "," + n[e].scale + ") rotate(45deg);background:" + n[e].color); requestAnimationFrame(a) } e.requestAnimationFrame = e.requestAnimationFrame || e.webkitRequestAnimationFrame || e.mozRequestAnimationFrame || e.oRequestAnimationFrame || e.msRequestAnimationFrame || function (e) { setTimeout(e, 1e3 / 60) }, function (t) { var a = r.createElement("style"); a.type = "text/css"; try { a.appendChild(r.createTextNode(t)) } catch (e) { a.styleSheet.cssText = t } r.getElementsByTagName("head")[0].appendChild(a) }(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);z-index: 5000;-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: absolute;}.heart:after{top: -5px;}.heart:before{left: -5px;}"), o = "function" == typeof e.onclick && e.onclick, e.onclick = function (e) { var t, a; o && o(), t = e, (a = r.createElement("div")).className = "heart", n.push({ el: a, x: t.clientX - 5, y: t.clientY - 5, scale: 1, alpha: 1, color: "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")" }), r.body.appendChild(a) }, a() }(window, document)</script>
+    <script>!function () { function n(n, e, t) { return n.getAttribute(e) || t } function e(n) { return document.getElementsByTagName(n) } function t() { l = c.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth, d = c.height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight } function m() { var t, o, i, a, c, u; w.clearRect(0, 0, l, d), f.forEach(function (n, e) { for (n.x += n.xa, n.y += n.ya, n.xa *= n.x > l || n.x < 0 ? -1 : 1, n.ya *= n.y > d || n.y < 0 ? -1 : 1, w.fillRect(n.x - .5, n.y - .5, 1, 1), o = e + 1; o < r.length; o++)null !== (t = r[o]).x && null !== t.y && (a = n.x - t.x, c = n.y - t.y, (u = a * a + c * c) < t.max && (t === h && u >= t.max / 2 && (n.x -= .03 * a, n.y -= .03 * c), i = (t.max - u) / t.max, w.beginPath(), w.lineWidth = 1.5 * i, w.strokeStyle = "violet", w.moveTo(n.x, n.y), w.lineTo(t.x, t.y), w.stroke())) }), y(m) } var l, d, r, o, i, a, c = document.createElement("canvas"), u = (o = e("script"), i = o.length, a = o[i - 1], { l: i, z: n(a, "zIndex", -1), o: n(a, "opacity", .5), c: n(a, "color", "0,0,0"), n: n(a, "count", 99) }), x = "c_n" + u.l, w = c.getContext("2d"), y = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function (n) { window.setTimeout(n, 1e3 / 45) }, s = Math.random, h = { x: null, y: null, max: 2e4 }; c.id = x, c.style.cssText = "position:fixed;top:0;left:0;z-index:" + u.z + ";opacity:" + u.o, e("body")[0].appendChild(c), t(), window.οnresize = t, window.onmousemove = function (n) { n = n || window.event, h.x = n.clientX, h.y = n.clientY }, window.onmouseout = function () { h.x = null, h.y = null }; for (var f = [], g = 0; g < u.n; g++) { var v = s() * l, p = s() * d, b = 2 * s() - 1, z = 2 * s() - 1; f.push({ x: v, y: p, xa: b, ya: z, max: 6e3 }) } r = f.concat([h]), setTimeout(function () { m() }, 100) }()</script>
+    <script>!function () { function e(e, t, n) { return Number(e.getAttribute(t)) || n } var t = document.getElementsByTagName("script"), n = t[t.length - 1]; config = { z: e(n, "zIndex", -1), a: e(n, "alpha", .6), s: e(n, "size", 300) }; var o, c, i = document.createElement("canvas"), a = i.getContext("2d"), l = window.devicePixelRatio || 1, d = window.innerWidth, r = window.innerHeight, g = config.s, h = Math, s = 0, f = 2 * h.PI, u = h.cos, m = h.random; function x() { for (a.clearRect(0, 0, d, r), o = [{ x: 0, y: .7 * r + g }, { x: 0, y: .7 * r - g }]; o[1].x < d + g;)y(o[0], o[1]) } function y(e, t) { a.beginPath(), a.moveTo(e.x, e.y), a.lineTo(t.x, t.y); var n = t.x + (2 * m() - .25) * g, i = function e(t) { c = t + (2 * m() - 1.1) * g; return r < c || c < 0 ? e(t) : c }(t.y); a.lineTo(n, i), a.closePath(), s -= f / -50, a.fillStyle = "#" + (127 * u(s) + 128 << 16 | 127 * u(s + f / 3) + 128 << 8 | 127 * u(s + f / 3 * 2) + 128).toString(16), a.fill(), o[0] = o[1], o[1] = { x: n, y: i } } i.width = d * l, i.height = r * l, a.scale(l, l), a.globalAlpha = config.a, i.style.cssText = "opacity: " + config.a + ";position:fixed;top:0;left:0;z-index: " + config.z + ";width:100%;height:100%;pointer-events:none;", document.getElementsByTagName("body")[0].appendChild(i), document.onclick = x, (document.ontouchstart = x)() }()</script>
+    <script></script>
+    <script src="https://pv.sohu.com/cityjson?ie=utf-8"></script>
+    <script>window.cheng = returnCitySN</script>
+    <script
+        async>var _hmt = _hmt || []; !function () { var e = document.createElement("script"); e.src = "https://hm.baidu.com/hm.js?007fda93834eea7e4181a6eca19cfb3e"; var t = document.getElementsByTagName("script")[0]; t.parentNode.insertBefore(e, t) }()</script>
+    <script>function getExplorerInfo() { var e = window.navigator.userAgent.toLowerCase(); return 0 <= e.indexOf("msie") ? { type: "IE", version: e.match(/msie ([\d.]+)/)[1] } : 0 <= e.indexOf("firefox") ? { type: "Firefox", version: e.match(/firefox\/([\d.]+)/)[1] } : 0 <= e.indexOf("chrome") ? { type: "Chrome", version: e.match(/chrome\/([\d.]+)/)[1] } : 0 <= e.indexOf("opera") ? { type: "Opera", version: e.match(/opera.([\d.]+)/)[1] } : 0 <= e.indexOf("Safari") ? { type: "Safari", version: e.match(/version\/([\d.]+)/)[1] } : { type: null } } window.liulanqi = getExplorerInfo()</script>
+    <script>let all = new Date();
+        let date = all.getDate();
+        let month = all.getMonth() + 1;
+        let year = all.getFullYear();
+        let hours = all.getHours();
+        let minutes = all.getMinutes()
+        if (minutes < 10) {
+            minutes = '0' + minutes
+        }
+        window.time = { year: year, month: month, date: date, hours: hours, minutes: minutes }</script>
+    <script>var osData = [{ name: "Windows 2000", group: "windows_server", identifier: "Windows NT 5.0", version: "5.0" }, { name: "Windows XP", group: "windows", identifier: "Windows NT 5.1", version: "5.1" }, { name: "Windows 2003", group: "windows_server", identifier: "Windows NT 5.2", version: "5.2" }, { name: "Windows Vista", group: "windows", identifier: "Windows NT 6.0", version: "6.0" }, { name: "Windows 7", group: "windows", identifier: "Windows NT 6.1", version: "7.0" }, { name: "Windows 8", group: "windows", identifier: "Windows NT 6.2", version: "8.0" }, { name: "Windows 8.1", group: "windows", identifier: "Windows NT 6.3", version: "8.1" }, { name: "Windows 10", group: "windows", identifier: "Windows NT 10.0", version: "10.0" }, { name: "Windows 2008", group: "windows_server", identifier: "Windows NT 6.0; WOW64", version: "6.0" }, { name: "Windows 2008", group: "windows_server", identifier: "Windows NT 6.1; WOW64", version: "6.1" }, { name: "Windows 2012", group: "windows_server", identifier: "Windows NT 6.3; Win64", version: "6.3" }, { name: "Chrome OS", group: "windows", identifier: "CrOS" }, { name: "Mac OS X Capitan", group: "mac", identifier: "Mac OS X (10([_|.])11([0-9_.]*))", versionSeparator: "[_|.]" }, { name: "Mac OS X Yosemite", group: "mac", identifier: "Mac OS X (10([_|.])10([0-9_.]*))", versionSeparator: "[_|.]" }, { name: "Mac OS X Mavericks", group: "mac", identifier: "Mac OS X (10([_|.])9([0-9_.]*))", versionSeparator: "[_|.]" }, { name: "Mac OS X Mountain Lion", group: "mac", identifier: "Mac OS X (10([_|.])8([0-9_.]*))", versionSeparator: "[_|.]" }, { name: "Mac OS X Lion", group: "mac", identifier: "Mac OS X (10([_|.])7([0-9_.]*))", versionSeparator: "[_|.]" }, { name: "Mac OS X Snow Leopard", group: "mac", identifier: "Mac OS X (10([_|.])6([0-9_.]*))", versionSeparator: "[_|.]" }, { name: "Mac OS X Leopard", group: "mac", identifier: "Mac OS X (10([_|.])5([0-9_.]*))", versionSeparator: "[_|.]" }, { name: "Mac OS X Tiger", group: "mac", identifier: "Mac OS X (10([_|.])4([0-9_.]*))", versionSeparator: "[_|.]" }, { name: "Mac OS X Panther", group: "mac", identifier: "Mac OS X (10([_|.])3([0-9_.]*))", versionSeparator: "[_|.]" }, { name: "Mac OS X Jaguar", group: "mac", identifier: "Mac OS X (10([_|.])2([0-9_.]*))", versionSeparator: "[_|.]" }, { name: "Mac OS X Puma", group: "mac", identifier: "Mac OS X (10([_|.])1([0-9_.]*))", versionSeparator: "[_|.]" }, { name: "Mac OS X Cheetah", group: "mac", identifier: "Mac OS X (10([_|.])0([0-9_.]*))", versionSeparator: "[_|.]" }, { name: "Mac OS", group: "mac", identifier: "Mac OS" }, { name: "Ubuntu", group: "linux_server", identifier: "Ubuntu", versionIdentifier: "Ubuntu/([0-9.]*)" }, { name: "CentOs", group: "linux_server", identifier: "CentOs", versionIdentifier: "CentOs/([0-9.]*)" }, { name: "Debian", group: "linux_server", identifier: "Debian" }, { name: "Gentoo", group: "linux_server", identifier: "Gentoo" }, { name: "国产手机", group: "linux", identifier: "Linux" }], setOsData = function (e) { var n = navigator.userAgent.toLowerCase(); for (i in osData) { if (osData.hasOwnProperty(i)) if (null != new RegExp(osData[i].identifier.toLowerCase()).exec(n)) { e.name = osData[i].name, e.group = osData[i].group; break } } return !0 }, setOsVersion = function (e, i, n) { if ("[" == n.substr(0, 1)) var r = i.split(new RegExp(n, "g"), 2); else r = i.split(n, 2); return "." != n && (i = i.replace(new RegExp(n, "g"), ".")), e.fullVersion = i, r[0] && (e.majorVersion = parseInt(r[0])), r[1] && (e.minorVersion = parseInt(r[1])), !0 }, os = {}; setOsData(os), window.device = os.name</script>
+    <script>!function (f) { function e(e) { for (var t, r, n = e[0], c = e[1], a = e[2], o = 0, d = []; o < n.length; o++)r = n[o], Object.prototype.hasOwnProperty.call(s, r) && s[r] && d.push(s[r][0]), s[r] = 0; for (t in c) Object.prototype.hasOwnProperty.call(c, t) && (f[t] = c[t]); for (b && b(e); d.length;)d.shift()(); return i.push.apply(i, a || []), u() } function u() { for (var e, t = 0; t < i.length; t++) { for (var r = i[t], n = !0, c = 1; c < r.length; c++) { var a = r[c]; 0 !== s[a] && (n = !1) } n && (i.splice(t--, 1), e = p(p.s = r[0])) } return e } var r = {}, l = { 10: 0 }, s = { 10: 0 }, i = []; function p(e) { if (r[e]) return r[e].exports; var t = r[e] = { i: e, l: !1, exports: {} }; return f[e].call(t.exports, t, t.exports, p), t.l = !0, t.exports } p.e = function (i) { var e = []; l[i] ? e.push(l[i]) : 0 !== l[i] && { 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1, 7: 1, 12: 1, 15: 1, 16: 1, 17: 1, 18: 1, 19: 1, 20: 1, 21: 1, 23: 1, 24: 1, 25: 1, 26: 1 }[i] && e.push(l[i] = new Promise(function (e, n) { for (var t = "static/css/" + ({}[i] || i) + "." + { 0: "31d6cfe0", 1: "ef4c68ad", 2: "126e617d", 3: "6abf4acc", 4: "5e083026", 5: "50bd7544", 6: "ae05c0b8", 7: "c254e545", 8: "31d6cfe0", 12: "6eb72756", 13: "31d6cfe0", 14: "31d6cfe0", 15: "6ef622ca", 16: "6d8c6b04", 17: "be73a3fb", 18: "be73a3fb", 19: "6c524c01", 20: "324c536d", 21: "a2a4c7c9", 22: "31d6cfe0", 23: "57d8e87c", 24: "d024c210", 25: "c254e545", 26: "35af1919", 27: "31d6cfe0", 28: "31d6cfe0", 29: "31d6cfe0", 30: "31d6cfe0", 31: "31d6cfe0", 32: "31d6cfe0", 33: "31d6cfe0", 34: "31d6cfe0", 35: "31d6cfe0", 36: "31d6cfe0", 37: "31d6cfe0", 38: "31d6cfe0", 39: "31d6cfe0", 40: "31d6cfe0" }[i] + ".chunk.css", c = p.p + t, r = document.getElementsByTagName("link"), a = 0; a < r.length; a++) { var o = (f = r[a]).getAttribute("data-href") || f.getAttribute("href"); if ("stylesheet" === f.rel && (o === t || o === c)) return e() } var d = document.getElementsByTagName("style"); for (a = 0; a < d.length; a++) { var f; if ((o = (f = d[a]).getAttribute("data-href")) === t || o === c) return e() } var u = document.createElement("link"); u.rel = "stylesheet", u.type = "text/css", u.onload = e, u.onerror = function (e) { var t = e && e.target && e.target.src || c, r = new Error("Loading CSS chunk " + i + " failed.\n(" + t + ")"); r.request = t, delete l[i], u.parentNode.removeChild(u), n(r) }, u.href = c, document.getElementsByTagName("head")[0].appendChild(u) }).then(function () { l[i] = 0 })); var r = s[i]; if (0 !== r) if (r) e.push(r[2]); else { var t = new Promise(function (e, t) { r = s[i] = [e, t] }); e.push(r[2] = t); var n, c = document.createElement("script"); c.charset = "utf-8", c.timeout = 120, p.nc && c.setAttribute("nonce", p.nc), c.src = p.p + "static/js/" + ({}[i] || i) + "." + { 0: "ba5a676e", 1: "eec1cec0", 2: "1611d2c4", 3: "cf50fea3", 4: "fc4905dc", 5: "3aaaa146", 6: "1dd68cda", 7: "1d2277d4", 8: "68024dbb", 12: "50635d27", 13: "e48c6fff", 14: "9554fbe0", 15: "f7c41bc8", 16: "6954fd68", 17: "7ac49d61", 18: "ccc3c887", 19: "86e0d1b4", 20: "902698eb", 21: "99228a21", 22: "ade6dde0", 23: "7483712f", 24: "0668328b", 25: "389a14bc", 26: "e97fbae7", 27: "f44633dc", 28: "41616f55", 29: "45d26b6e", 30: "49243dbe", 31: "f2dc7d6e", 32: "9d181077", 33: "69758bc3", 34: "10e214d5", 35: "ce8f3a53", 36: "3545011f", 37: "b9bdbb40", 38: "6d906531", 39: "d7962936", 40: "ec815052" }[i] + ".chunk.js"; var a = new Error; n = function (e) { c.onerror = c.onload = null, clearTimeout(o); var t = s[i]; if (0 !== t) { if (t) { var r = e && ("load" === e.type ? "missing" : e.type), n = e && e.target && e.target.src; a.message = "Loading chunk " + i + " failed.\n(" + r + ": " + n + ")", a.name = "ChunkLoadError", a.type = r, a.request = n, t[1](a) } s[i] = void 0 } }; var o = setTimeout(function () { n({ type: "timeout", target: c }) }, 12e4); c.onerror = c.onload = n, document.head.appendChild(c) } return Promise.all(e) }, p.m = f, p.c = r, p.d = function (e, t, r) { p.o(e, t) || Object.defineProperty(e, t, { enumerable: !0, get: r }) }, p.r = function (e) { "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(e, Symbol.toStringTag, { value: "Module" }), Object.defineProperty(e, "__esModule", { value: !0 }) }, p.t = function (t, e) { if (1 & e && (t = p(t)), 8 & e) return t; if (4 & e && "object" == typeof t && t && t.__esModule) return t; var r = Object.create(null); if (p.r(r), Object.defineProperty(r, "default", { enumerable: !0, value: t }), 2 & e && "string" != typeof t) for (var n in t) p.d(r, n, function (e) { return t[e] }.bind(null, n)); return r }, p.n = function (e) { var t = e && e.__esModule ? function () { return e.default } : function () { return e }; return p.d(t, "a", t), t }, p.o = function (e, t) { return Object.prototype.hasOwnProperty.call(e, t) }, p.p = "/", p.oe = function (e) { throw console.error(e), e }; var t = window.webpackJsonpdemo = window.webpackJsonpdemo || [], n = t.push.bind(t); t.push = e, t = t.slice(); for (var c = 0; c < t.length; c++)e(t[c]); var b = n; u() }([])</script>
+// ***********************************
+    <div class="container1">
+        <div class="page-header">
+            <h1>博客系统后台管理 <small>v 0.1.2</small></h1>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3" style="width: 50%;">
+                <ul class="nav nav-pills nav-stacked">
+                    <li role="presentation" class="active list-item" data-wrap="home" id="page"><a href="#">管理员信息</a>
+                    </li>
+                    <li role="presentation" class="list-item" data-wrap="fabiao"><a href="#">发布文章</a></li>
+                    <li role="presentation" class=" list-item" id="shenhe-btn" data-wrap="shenhe"><a href="#">审核评论</a>
+                    </li>
+                    <li role="presentation" class=" list-item" id="managePage-btn" data-wrap="managePage"><a
+                            href="#">管理文章</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-lg-9 right-container">
+                <!-- 主页部分 -->
+                <div class="right-wrap active" id="home">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>ID</th>
+                            <th>用户名</th>
+                            <th>密码</th>
+                            <th>权限</th>
+                            <th>操作</th>
+                        </tr>
+
+                        <tbody class="realContent">
+
+                        </tbody>
+                    </table>
+                    <button class="btn btn-success" id="addManager">添加管理员</button>
+                    <!-- 翻页按钮 -->
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            <li class="btnGroup0">
+                                <a href="#" aria-label="Previous" class="pre">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" aria-label="Next" class="next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <form action="/admin/addManager" class="form-inline" method="POST" id="addManagerForm"
+                        style="display: none;">
+                        <label for="managerName">姓名：</label> <input type="text" id="managerName" class="form-control"
+                            placeholder="管理员姓名" name="managerName">
+                        <label for="managerPsword">密码：</label> <input type="text" class="form-control"
+                            id="managerPsword" placeholder="管理员初始密码" name="managerPsword">
+                        <label for="power"></label> 权限：<input type="number" id="power" class="form-control"
+                            placeholder="仅限数字" name="power">
+                        <input type="submit" class="btn btn-danger" value="添加">
+                    </form>
+                </div>
+                <!-- 发表文章部分 -->
+                <div class="right-wrap" id="fabiao">
+                    <form method="POST" action="/admin/uploadPage">
+                        <div class="form-group">
+                            <label for="title">大标题</label>
+                            <input type="text" class="form-control" id="title" name="title" placeholder="标题">
+                        </div>
+                        <div class="form-group">
+                            <label for="author">作者</label>
+                            <input type="text" class="form-control" id="author" name="author" placeholder="作者">
+                        </div>
+                        <div class="form-group">
+                            <label for="sort">分类</label>
+                            <input type="text" class="form-control" id="sort" name="sort" placeholder="分类">
+                        </div>
+                        <div class="form-group">
+                            <label for="intro">简介</label>
+                            <input type="text" class="form-control" id="intro" name="intro" placeholder="简介">
+                        </div>
+                        <textarea class="form-control" placeholder="内容" name="content" rows="3"></textarea><br>
+                        <button type="submit" class="btn btn-default">提交</button>
+                    </form>
+                </div>
+                <!-- 审核部分 -->
+                <div class="right-wrap " id="shenhe">
+                    <div class="well">还没有评论</div>
+
+
+
+                </div>
+                <div class="right-wrap" id="managePage">
+                    <div class="well">还没有文章</div>
+
+                </div>
+            </div>
+
+
+        </div>
+        <div class="box"></div>
+    </div>
+
+
+    </div>
+    <script src="./js/admin.js"></script>
+    <script>
+        // 分页部分
+        // 设置变量
+        var tableContent = ''
+        var btnContent = ''
+        var pageContent = 1
+        var size = 3
+
+        // 渲染函数
+        var render = function (arr, pageContentNum) {
+            // alert('执行了render')
+
+            var fillArr = arr.slice(size * (pageContent - 1), (size * pageContent))
+
+
+            if (fillArr.length == 0) {
+                $('.table').html('<div class="well">还没有管理员</div>')
+            }
+
+            fillArr.forEach(element => {
+                tableContent += `
+               <tr>
+                   <td>${element._id}</td>
+                   <td>${element.name}</td>
+                   <td>${element.psword}</td>
+                   <td>${element.power}</td>
+                   <td><button class='btn btn-danger deleteManager' data-_id='${element._id}'>删除此管理员</button></td>
+               </tr>
+               `
+            });
+            // console.log(tableContent)
+            $('.realContent').html(tableContent)
+            $('.deleteManager').on('click', function () {
+                deleteManagerFun($(this).attr('data-_id'))
+            })
+            tableContent = ''
+        }
+
+        var isAdd = false
+        $('#addManager').on('click', function () {
+            if (isAdd == false) {
+                $('#addManagerForm').css('display', 'block')
+                isAdd = true
+            }
+            else {
+                $('#addManagerForm').css('display', 'none')
+                isAdd = false
+            }
+        })
+
+        var addManagerFun = function () {
+
+        }
+        var deleteManagerFun = function (_id) {
+            $.ajax({
+                type: 'get',
+                url: 'deleteManager',
+                data: { _id: _id },
+                success: function (e) {
+
+                }
+            })
+        }
+        //    填充函数
+
+        var fillTable = function (arr, num) {    //num按钮个数
+
+            // console.log(110, num)
+            for (var i = 0; i < num; i++) {
+                // console.log(i)
+                $(`.btnGroup${i}`).after(`<li class="btn btnGroup${i + 1}" data-num='${i + 1}'><a target='_self'>${i + 1}</a></li>`)
+            }
+
+            // 1    0-2
+            // 2    3-5
+            // 3    6-8
+            render(arr, pageContent)
+            $('.btn').on('click', function () {
+                pageContent = $(this).attr('data-num')
+
+                render(arr, pageContent)
+
+            })
+
+
+            $('.pre').on('click', function () {
+                if (pageContent == 1) {
+
+                } else {
+                    pageContent--
+
+                }
+                render(arr, pageContent)
+            })
+            $('.next').on('click', function () {
+                if (pageContent == num) {
+
+                } else {
+                    pageContent++
+                }
+                render(arr, pageContent)
+            })
+        }
+
+        var getBtn = function (page) {
+            $.ajax({
+                type: 'get',
+                // url不写全会跨域
+                url: 'user',
+                data: {
+                    pageNum: page
+                },
+                success: function (e) {
+                    // console.log(81, e)
+                    var limit = 4
+                    var handleArr = []
+                    var btnNum = Math.ceil(e.length / limit)
+                    console.log(105, btnNum)
+
+                    fillTable(e, btnNum)
+                }
+            })
+        }
+
+        getBtn();
+        $('#managePage-btn').on('click', function () {
+
+            getPage()
+        })
+        $('#shenhe-btn').on('click', function () {
+
+            getComment()
+        })
+        var passComment = function (_id) {
+            $.ajax({
+                type: 'get',
+                url: 'http://localhost:3006/admin/passComment',
+                data: {
+                    _id: _id
+                },
+                success: function (e) {
+                    // console.log('这是通过的')
+                    // console.log(e)
+                    //    审核过后重新拉取评论列表
+                    getComment()
+                }
+            })
+        }
+        var refuseComment = function (_id) {
+            $.ajax({
+                type: 'get',
+                url: 'http://localhost:3006/admin/refuseComment',
+                data: {
+                    _id: _id
+                },
+                success: function (e) {
+                    // console.log('这是没通过的')
+                    // console.log(e)
+                    //    审核过后重新拉取评论列表
+                    getComment()
+                }
+            })
+        }
+
+        var addEventListener = function () {
+            $('.btn-pass').on('click', function () {
+                // console.log('111')
+                passComment($(this).attr('data-_id'))
+            })
+            $('.btn-refuse').on('click', function () {
+                // console.log('222')
+                refuseComment($(this).attr('data-_id'))
+            })
+        }
+        // 文章填充
+        var fillPage = function (arr) {
+            var tpl = ''
+            // if (arr.length == 0) {
+            //     $('#page').html('<div class="well">还没有发表文章</div>')
+            // }
+
+            // console.log(147, arr[0])
+            $('#managePage').html(arr[0])
+        }
+
+        // 评论填充
+        var fillComment = function (arr) {
+            var html = ''
+
+            if (arr.length == 0) {
+                $('#shenhe').html('<div class="well">还没有评论</div>')
+                return
+            }
+
+            // 如果有评论的话，吧每一条都套以下模板
+            arr.forEach(element => {
+                html += `
+                <div class="panel panel-default">
+                        <div class="panel-heading">
+                           <h3 class='panel-title'> 作者：${element.author}日期：${element.date}</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="well">评论的文章标题：${element.f_title}
+                                <br>评论的文章简介：${element.f_intro}
+                            </div>
+                            ${element.content}
+                        </div>
+                        <div class="panel-footer">
+                            <div class="btn-group" role="group" aria-label="...">
+                                <button type="button" class="btn btn-default btn-success btn-pass" data-_id="${element._id}">通过</button>
+                                <button type="button" class="btn btn-default btn-danger btn-refuse" data-_id="${element._id}">不通过</button>
+                            </div>
+                        </div>
+                    </div>`
+            });
+            // 把最终的所有评论都添加到审核区域里
+            $('#shenhe').html(html)
+            // 给每条评论的通过，不通过按钮添加点击事件
+            addEventListener()
+        }
+        var getComment = function () {
+            $.ajax({
+                type: 'get',
+                url: 'http://localhost:3006/admin/getComment',
+                data: {},
+                success: function (e) {
+                    // console.log(166,e)
+                    // shenhe.innerHTML=JSON.parse(e) 
+                    fillComment(e)
+                }
+            })
+        }
+        var getPage = function (_id) {
+            console.log(_id)
+            $.ajax({
+                type: 'get',
+                url: 'http://localhost:3006/admin/getPage',
+                data: {
+                    _id: _id
+                },
+                success: function (e) {
+                    var array = []
+                    array.push(e)
+                    // console.log(182, array)
+                    fillPage(array)
+                }
+            })
+
+        }
+        console.log($('.deletePage'))
+        // $('.deletePage').on('click',function(){
+
+        //     console.log('这是ejs的删除文章')
+        //     console.log($(this).attr('data-_id'))
+        //   console.log($('#deletePage'))  // deletePageFun($(this).attr('data-_id'))
+        // })
+
+        var deletePageFun = function (_id) {
+            $.ajax({
+                type: 'get',
+                url: 'deletePage',
+                data: { _id: _id },
+                success: function (e) {
+
+                }
+            })
+        }
+        // getComment()
+    </script>
+</body>
+
+</html>

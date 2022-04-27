@@ -1,0 +1,17 @@
+_id   主键、标识
+分类   sort
+大标题  title
+作者    author
+日期    date
+内容    content
+简介    intro
+评论    comment
+
+
+评论字段
+_id   在评论表里的id
+fid    是哪个文章的评论(from id)
+content   内容
+author  作者
+date    日期
+state [0:'正在审核',1:"审核通过",2:"审核不通过"]

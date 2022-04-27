@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="./bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <script src="./bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    
+</head>
+
+<body>
+    
+    <div class="container">
+
+        <div class="page-header">
+            <h1>
+                <%=data.title%>
+                    <small>
+                        <%=data.intro%>
+                    </small>
+            </h1>
+        </div>
+        <div>分类：<span class="label-primary label"><%=data.sort%></span></div>
+        <p>作者：<%=data.author%>
+        </p>
+        <p>日期：<%=data.date%>
+        </p>
+        <div class="well">
+            <h3>
+                
+                <%=data.content%>
+            </h3>
+        </div>
+
+        <div class="page-header">
+            <h4>
+                评论：
+                <%=data.comment%>
+            </h4>
+        </div>
+        <!-- <ul class="list-group"> -->
+            <% comment.forEach((e)=>{ %>
+                <!-- <li class="list-group-item"> -->
+                    <div class="panel-default panel">
+                        <div class="panel-body">
+                            <%=e.content%>
+                        </div>
+                        <div class="panel-footer">
+                            <%=e.author%>
+                           
+                                <%=e.date%>
+                        </div>
+                    </div>
+                <!-- </li> -->
+                <%})%>
+
+        <!-- </ul> -->
+        <div class="page-header">
+            <h4>
+                我也要评论：
+            </h4>
+        </div>
+        <form method="POST" action="/submitComment?_id=<%=data._id%>">
+            <div class="form-group">
+                <label for="exampleInputEmail1">你的邮箱：</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <textarea class="form-control" name="content" rows="3"></textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-default">发布</button>
+            <div class="btn-group" role="group" aria-label="...">
+                <button type="button" class="btn btn-default"><a href="/">回到首页</a></button>
+              </div>
+        </form>
+    </div>
+</body>
+
+</html>
